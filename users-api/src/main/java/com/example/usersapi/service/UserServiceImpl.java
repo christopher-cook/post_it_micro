@@ -5,15 +5,9 @@ import com.example.usersapi.model.JwtResponse;
 import com.example.usersapi.model.User;
 import com.example.usersapi.model.UserRole;
 import com.example.usersapi.repository.UserRepository;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +20,10 @@ public class UserServiceImpl implements UserService {
   @Autowired
   UserRoleService userRoleService;
 
-  @Autowired
-  @Qualifier("encoder")
-  PasswordEncoder bCryptPasswordEncoder;
+  @Bean
+  public PasswordEncoder encoder() {
+    return new BCryptPasswordEncoder();
+  }
 
   @Autowired
   JwtUtil jwtUtil;
@@ -44,12 +39,12 @@ public class UserServiceImpl implements UserService {
 
 //    UserRole userRole = userRoleService.getRole(user.getUserRole().getName());;
 //    user.setUserRole(userRole);
-    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    user.setPassword(encoder().encode(user.getPassword()));
     User savedUser = userRepository.save(user);
     if (savedUser != null) {
-      UserDetails userDetails = loadUserByUsername(savedUser.getUsername());
-      String token = jwtUtil.generateToken(userDetails);
+      String token = jwtUtil.generateToken(savedUser.getUsername());
       return new JwtResponse(token, savedUser.getUsername());
+
     }
     return null;
   }
@@ -57,9 +52,8 @@ public class UserServiceImpl implements UserService {
   @Override
   public JwtResponse login(User user) {
     User foundUser = userRepository.login(user.getEmail());
-    if (foundUser != null && bCryptPasswordEncoder.matches(user.getPassword(), foundUser.getPassword())) {
-      UserDetails userDetails = loadUserByUsername(foundUser.getUsername());
-      String token = jwtUtil.generateToken(userDetails);
+    if (foundUser != null && encoder().matches(user.getPassword(), foundUser.getPassword())) {
+      String token = jwtUtil.generateToken(foundUser.getUsername());
       return new JwtResponse(token, foundUser.getUsername());
     }
     return null;
@@ -70,22 +64,4 @@ public class UserServiceImpl implements UserService {
     return userRepository.findByUsername(username);
   }
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = getUserByUsername(username);
-
-    if(user==null)
-      throw new UsernameNotFoundException("User null");
-
-    return new org.springframework.security.core.userdetails.User(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()),
-        true, true, true, true, new ArrayList<>());
-  }
-
-  private List<GrantedAuthority> getGrantedAuthorities(User user){
-    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-//    TODO : add this back in for user roles
-//    authorities.add(new SimpleGrantedAuthority(user.getUserRole().getName()));
-
-    return authorities;
-  }
 }

@@ -1,6 +1,5 @@
-package com.example.usersapi.config;
+package com.example.apigateway.config;
 
-import com.example.usersapi.service.UserService;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -8,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.usersapi.config.JwtUtil;
-import com.example.usersapi.service.UserService;
+import com.example.apigateway.config.JwtUtil;
+import com.example.apigateway.service.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +23,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
   @Autowired
-  private UserService userService;
+  private CustomUserService userService;
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -59,6 +58,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         usernamePasswordAuthenticationToken
             .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+//        request.setAttribute("username", username);
       }
     }
     chain.doFilter(request, response);
