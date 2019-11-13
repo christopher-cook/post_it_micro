@@ -19,7 +19,11 @@ public class CommentController {
     @PostMapping("/{postId}")
     public Comment createComment(@RequestHeader("userId") String userId, @PathVariable String postId, @RequestBody Comment comment){
         return commentService.createComment(userId, postId, comment);
+    }
 
+    @DeleteMapping("/{commentId}")
+    public Long deleteComment(@PathVariable Long commentId){
+        return commentService.deleteComment(commentId);
     }
 
 }

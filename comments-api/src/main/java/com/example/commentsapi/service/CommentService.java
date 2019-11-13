@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 public interface CommentService {
     public Comment createComment(String userId, String postId, Comment comment);
 
+    public Long deleteComment(Long commentId);
 }
