@@ -15,4 +15,13 @@ public class PostServiceImpl implements PostService{
     public Iterable<Post> listPosts() {
         return postRepository.findAll();
     }
+
+    @Override
+    public Post createPost(String userId, Post post) {
+        Long user_id = Long.parseLong(userId, 10);
+        System.out.println(user_id);
+
+        post.setUser_id(user_id);
+        return postRepository.save(post);
+    }
 }

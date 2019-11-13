@@ -3,9 +3,7 @@ package com.example.postsapi.controller;
 import com.example.postsapi.model.Post;
 import com.example.postsapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PostController {
@@ -18,4 +16,11 @@ public class PostController {
         System.out.println(userId);
         return postService.listPosts();
     }
+
+    @PostMapping("/")
+    public Post createPost(@RequestHeader("userId") String userId, @RequestBody Post post) {
+        System.out.println(userId);
+        return postService.createPost(userId, post);
+    }
+    
 }

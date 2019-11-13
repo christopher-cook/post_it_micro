@@ -17,6 +17,9 @@ public class Post {
     @Column
     private String description;
 
+    @Column
+    private Long user_id;
+
     public Post(){ }
 
     public Long getId() {
@@ -41,5 +44,13 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 }
