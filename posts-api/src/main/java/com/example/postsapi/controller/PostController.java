@@ -4,6 +4,7 @@ import com.example.postsapi.model.Post;
 import com.example.postsapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,7 +14,8 @@ public class PostController {
     PostService postService;
 
     @GetMapping("/list")
-    public Iterable<Post> listAll(){
+    public Iterable<Post> listAll(@RequestHeader("userId") String userId){
+        System.out.println(userId);
         return postService.listPosts();
     }
 }
