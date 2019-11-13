@@ -12,8 +12,7 @@ public class PostController {
     PostService postService;
 
     @GetMapping("/list")
-    public Iterable<Post> listAll(@RequestHeader("userId") String userId){
-        System.out.println(userId);
+    public Iterable<Post> listAll(){
         return postService.listPosts();
     }
 
