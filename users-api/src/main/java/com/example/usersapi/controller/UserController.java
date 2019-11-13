@@ -23,8 +23,8 @@ public class UserController {
 
 //  @PreAuthorize("hasRole('ROLE_ADMIN')")
   @GetMapping("/list")
-  public Iterable<User> listUsers(@RequestHeader("username") String username) {
-    System.out.println(username);
+  public Iterable<User> listUsers(@RequestHeader("userId") String userId) {
+    System.out.println(userId);
     return userService.listUsers();
   }
 
@@ -37,11 +37,4 @@ public class UserController {
   public ResponseEntity<?> login(@RequestBody User user) {
     return ResponseEntity.ok(userService.login(user));
   }
-
-//  @PostMapping("/getuserfromtoken")
-//  public User getUserFromToken() {
-////    String username = SecurityContextHolder.getContext().getAuthentication().getName();
-////    System.out.println(username);
-//    return userService.getUserByUsername(username);
-//  }
 }
