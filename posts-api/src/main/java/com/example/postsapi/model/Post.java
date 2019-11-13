@@ -19,6 +19,8 @@ public class Post {
 
     @Column
     private Long user_id;
+    @Transient
+    private User user;
 
     public Post(){ }
 
@@ -52,5 +54,13 @@ public class Post {
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

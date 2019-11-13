@@ -34,11 +34,6 @@ public class User {
   @Column
   private String password;
 
-//  @ManyToOne(cascade = {CascadeType.DETACH,
-//      CascadeType.MERGE, CascadeType.REFRESH})
-//  @JoinColumn(name = "user_role_id", nullable = false)
-//  private UserRole userRole;
-
   public User() {}
 
 //  public UserRole getUserRole() { return userRole; }
