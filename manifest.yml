@@ -1,0 +1,32 @@
+applications:
+# - name: qin-eureka-server
+#   memory: 256M
+#   instances: 1
+#   env:
+#     SPRING_PROFILES_ACTIVE: pcf,global
+#   docker:
+#     image: qinqinzhu/eureka-server:0.0.1-SNAPSHOT
+- name: qin-api-gateway
+  memory: 256M
+  instances: 1
+  env:
+    SPRING_PROFILES_ACTIVE: pcf
+    SPRING_APPLICATION_NAME: api-gateway
+  docker:
+    image: qinqinzhu/api-gateway:0.0.1-SNAPSHOT
+# - name: qin-users-api
+#   memory: 256M
+#   instances: 1
+#   env:
+#     SPRING_PROFILES_ACTIVE: pcf
+#     SPRING_APPLICATION_NAME: user
+#   docker:
+#     image: qinqinzhu/users-api:0.0.1-SNAPSHOT
+# - name: dba-docker-test-post-service
+#   memory: 512M
+#   instances: 1
+#   env:
+#     SPRING_PROFILES_ACTIVE: pcf,global
+#     SPRING_APPLICATION_NAME: post
+#   docker:
+#     image: davisballen/test_post-service:0.0.1-SNAPSHOT
