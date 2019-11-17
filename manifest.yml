@@ -1,0 +1,39 @@
+applications:
+- name: eureka-server
+  memory: 400M
+  instances: 1
+  env:
+    SPRING_PROFILES_ACTIVE: dev
+  docker:
+    image: cgcook81/eureka-server:0.0.1-SNAPSHOT
+- name: api-gateway
+  memory: 400M
+  instances: 1
+  env:
+    SPRING_PROFILES_ACTIVE: dev
+  docker:
+    image: cgcook81/api-gateway:0.0.2-SNAPSHOT
+- name: users-api
+  memory: 400M
+  instances: 1
+  env:
+    SPRING_PROFILES_ACTIVE: dev
+    SPRING_APPLICATION_NAME: users
+  docker:
+    image: cgcook81/users-api:0.0.3-SNAPSHOT
+# - name: posts-api
+#   memory: 400M
+#   instances: 1
+#   env:
+#     SPRING_PROFILES_ACTIVE: dev
+#     SPRING_APPLICATION_NAME: posts
+#   docker:
+#     image: cgcook81/users-api:0.0.4-SNAPSHOT
+# - name: comments-api
+#   memory: 400M
+#   instances: 1
+#   env:
+#     SPRING_PROFILES_ACTIVE: dev
+#     SPRING_APPLICATION_NAME: comments
+#   docker:
+#     image: cgcook81/comments-api:0.0.5-SNAPSHOT
