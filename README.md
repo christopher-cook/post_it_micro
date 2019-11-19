@@ -17,3 +17,4 @@ The app was planned and prepared using Pivotal Tracker for user stories and Draw
 ## ERD
 <img src="assets/microservice_erd.png">
 ## Architecture
+<img src="assets/microservices_architecture.png">
