@@ -1,7 +1,9 @@
 package com.example.postsapi.controller;
 
+import com.example.postsapi.model.Comment;
 import com.example.postsapi.model.Post;
 import com.example.postsapi.service.PostService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,5 +23,11 @@ public class PostController {
         System.out.println(userId);
         return postService.createPost(userId, post);
     }
+
+    @GetMapping("/{postId}/comment")
+    public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
+        return postService.getCommentsByPostId(postId);
+    }
+
 
 }

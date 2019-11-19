@@ -1,9 +1,12 @@
 package com.example.postsapi.service;
 
+import com.example.postsapi.model.Comment;
 import com.example.postsapi.model.Post;
 import com.example.postsapi.model.User;
+import com.example.postsapi.repository.CommentRepository;
 import com.example.postsapi.repository.PostRepository;
 import com.example.postsapi.repository.UserRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,9 @@ public class PostServiceImpl implements PostService{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @Override
     public Iterable<Post> listPosts() {
@@ -39,5 +45,18 @@ public class PostServiceImpl implements PostService{
 
         post.setUser_id(user_id);
         return postRepository.save(post);
+    }
+
+    @Override
+    public List<Comment> getCommentsByPostId(Long postId) {
+        List <Comment> comments = commentRepository.getCommentsByPostId(postId);
+
+        for (Object comment : comments) {
+           Comment castedComment = (Comment) comment;
+           User user = userRepository.getUserById(castedComment.getUser_id());
+           castedComment.setUser(user);
+        }
+
+        return comments;
     }
 }
