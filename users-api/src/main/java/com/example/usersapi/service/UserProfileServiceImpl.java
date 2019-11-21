@@ -16,12 +16,21 @@ public class UserProfileServiceImpl implements UserProfileService {
     UserRepository userRepository;
 
     @Override
-    public UserProfile createProfile(String userId, UserProfile userProfile) {
-        User currentUser = userRepository.findById(Long.getLong(userId)).get();
-        UserProfile savedProfile = userProfileRepository.save(userProfile);
-        currentUser.setUserProfile(savedProfile);
-        userRepository.save(currentUser);
-        return userProfile;
+    public UserProfile createProfile(Long userId, UserProfile userProfile) {
+        User currentUser = userRepository.findById(userId).get();
+        UserProfile existingProfile = currentUser.getUserProfile();
+        if (existingProfile != null) {
+            existingProfile.setAdditionalEmail(userProfile.getAdditionalEmail());
+            existingProfile.setMobile(userProfile.getMobile());
+            existingProfile.setAddress(userProfile.getAddress());
+            userProfileRepository.save(existingProfile);
+            return existingProfile;
+        } else {
+            UserProfile savedProfile = userProfileRepository.save(userProfile);
+            currentUser.setUserProfile(savedProfile);
+            userRepository.save(currentUser);
+            return savedProfile;
+        }
 
     }
 }

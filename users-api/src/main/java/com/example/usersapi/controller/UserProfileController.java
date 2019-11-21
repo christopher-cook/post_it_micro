@@ -15,7 +15,7 @@ public class UserProfileController {
     UserProfileService userProfileService;
 
     @PostMapping("/profile")
-    public UserProfile createUserProfile(@RequestHeader("userId") String userId, @RequestBody UserProfile userProfile){
+    public UserProfile createUserProfile(@RequestHeader("userId") Long userId, @RequestBody UserProfile userProfile){
         return userProfileService.createProfile(userId, userProfile);
     }
 

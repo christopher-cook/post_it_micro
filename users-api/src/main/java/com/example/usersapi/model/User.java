@@ -31,7 +31,7 @@ public class User {
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="user_profile_id")
-  @JsonIgnore
+//  @JsonIgnore
   private UserProfile userProfile;
 
   public UserProfile getUserProfile() {
