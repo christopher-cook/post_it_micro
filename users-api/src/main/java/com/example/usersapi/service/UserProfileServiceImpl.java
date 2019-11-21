@@ -33,4 +33,15 @@ public class UserProfileServiceImpl implements UserProfileService {
         }
 
     }
+
+    @Override
+    public UserProfile getProfile(Long userId) {
+        User currentUser = userRepository.findById(userId).get();
+        UserProfile existingProfile = currentUser.getUserProfile();
+        if(existingProfile != null) {
+            return existingProfile;
+        } else {
+            return new UserProfile(); //call const method
+        }
+    }
 }
