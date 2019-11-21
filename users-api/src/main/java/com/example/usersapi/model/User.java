@@ -1,16 +1,10 @@
 package com.example.usersapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 
 @JsonIdentityInfo(
@@ -33,6 +27,20 @@ public class User {
 
   @Column
   private String password;
+
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name="user_profile_id")
+  @JsonIgnore
+  private UserProfile userProfile;
+
+  public UserProfile getUserProfile() {
+    return userProfile;
+  }
+
+  public void setUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
+  }
 
   public User() {}
 
