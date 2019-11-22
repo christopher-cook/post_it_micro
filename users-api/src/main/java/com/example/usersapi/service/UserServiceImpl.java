@@ -1,6 +1,8 @@
 package com.example.usersapi.service;
 
 import com.example.usersapi.config.JwtUtil;
+import com.example.usersapi.exception.LoginException;
+import com.example.usersapi.exception.UserExistsException;
 import com.example.usersapi.model.JwtResponse;
 import com.example.usersapi.model.User;
 import com.example.usersapi.model.UserRole;
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public JwtResponse createUser(User user) {
+  public JwtResponse createUser(User user) throws UserExistsException {
 //  TODO:  uncomment this to add user roles later and in the user entity
 
 //    UserRole userRole = userRoleService.getRole(user.getUserRole().getName());;
@@ -46,17 +48,17 @@ public class UserServiceImpl implements UserService {
       return new JwtResponse(token, savedUser.getUsername());
 
     }
-    return null;
+    throw new UserExistsException("User already exists");
   }
 
   @Override
-  public JwtResponse login(User user) {
+  public JwtResponse login(User user) throws LoginException {
     User foundUser = userRepository.login(user.getEmail());
     if (foundUser != null && encoder().matches(user.getPassword(), foundUser.getPassword())) {
       String token = jwtUtil.generateToken(foundUser.getUsername());
       return new JwtResponse(token, foundUser.getUsername());
     }
-    return null;
+    throw new LoginException("Email/Password invalid!");
   }
 
   @Override

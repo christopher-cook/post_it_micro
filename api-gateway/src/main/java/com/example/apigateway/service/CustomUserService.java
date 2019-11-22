@@ -1,6 +1,7 @@
 package com.example.apigateway.service;
 
 import com.example.apigateway.bean.UserBean;
+import com.example.apigateway.exception.EntityNotFoundException;
 import com.example.apigateway.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +26,16 @@ public class CustomUserService implements UserDetailsService {
   UserRepository userRepository;
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 
     UserBean user = userRepository.getUserByUsername(username);
-
-    if(user==null)
-      throw new UsernameNotFoundException("User null");
-
+    if (user == null) {
+      throw new UsernameNotFoundException("User does not exist");
+    }
     return new org.springframework.security.core.userdetails.User(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()),
         true, true, true, true, new ArrayList<>());
   }
+
 
   private List<GrantedAuthority> getGrantedAuthorities(UserBean user){
     List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

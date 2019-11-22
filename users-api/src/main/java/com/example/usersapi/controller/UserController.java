@@ -1,5 +1,7 @@
 package com.example.usersapi.controller;
 
+import com.example.usersapi.exception.LoginException;
+import com.example.usersapi.exception.UserExistsException;
 import com.example.usersapi.model.JwtResponse;
 import com.example.usersapi.model.User;
 import com.example.usersapi.service.UserService;
@@ -29,12 +31,12 @@ public class UserController {
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<?> createUser(@RequestBody User user) {
+  public ResponseEntity<?> createUser(@RequestBody User user) throws UserExistsException {
     return ResponseEntity.ok(userService.createUser(user));
   }
 
   @PostMapping("/login")
-  public ResponseEntity<?> login(@RequestBody User user) {
+  public ResponseEntity<?> login(@RequestBody User user) throws LoginException {
     return ResponseEntity.ok(userService.login(user));
   }
 }
