@@ -17,7 +17,7 @@ public class Receiver {
     @RabbitHandler
     public void receive(String message) {
         System.out.println(message);
-        commentRepository.deleteCommentsByPostId(Long.parseLong(message));
+        commentRepository.deleteAllByPost_Id(Long.parseLong(message));
     }
 
 }
