@@ -3,6 +3,7 @@ package com.example.postsapi.service;
 import com.example.postsapi.model.Comment;
 import com.example.postsapi.model.Post;
 import com.example.postsapi.model.User;
+import com.example.postsapi.mq.Sender;
 import com.example.postsapi.repository.CommentRepository;
 import com.example.postsapi.repository.PostRepository;
 import com.example.postsapi.repository.UserRepository;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PostServiceImpl implements PostService{
+
+    @Autowired
+    Sender sender;
 
     @Autowired
     PostRepository postRepository;
@@ -63,6 +67,7 @@ public class PostServiceImpl implements PostService{
     @Override
     public String deletePost(Long postId) {
         postRepository.deleteById(postId);
+        sender.send(Long.toString(postId));
         return "success";
     }
 }

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PostController {
 
-    @Autowired
-    Sender sender;
+//    @Autowired
+//    Sender sender;
 
     @Autowired
     PostService postService;
@@ -34,7 +34,6 @@ public class PostController {
     }
     @DeleteMapping("/{postId}")
     public String deletePost(@PathVariable Long postId){
-        sender.send(Long.toString(postId));
         return postService.deletePost(postId);
     }
 
