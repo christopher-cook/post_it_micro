@@ -2,6 +2,7 @@ package com.example.postsapi.controller;
 
 import com.example.postsapi.model.Comment;
 import com.example.postsapi.model.Post;
+import com.example.postsapi.mq.Sender;
 import com.example.postsapi.service.PostService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PostController {
+
+    @Autowired
+    Sender sender;
 
     @Autowired
     PostService postService;
@@ -27,6 +31,11 @@ public class PostController {
     @GetMapping("/{postId}/comment")
     public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
         return postService.getCommentsByPostId(postId);
+    }
+    @DeleteMapping("/{postId}")
+    public String deletePost(@PathVariable Long postId){
+        sender.send(Long.toString(postId));
+        return postService.deletePost(postId);
     }
 
 

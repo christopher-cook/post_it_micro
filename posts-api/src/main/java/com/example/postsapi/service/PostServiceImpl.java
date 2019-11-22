@@ -59,4 +59,10 @@ public class PostServiceImpl implements PostService{
 
         return comments;
     }
+
+    @Override
+    public String deletePost(Long postId) {
+        postRepository.deleteById(postId);
+        return "success";
+    }
 }

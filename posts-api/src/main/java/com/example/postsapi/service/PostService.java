@@ -10,5 +10,7 @@ public interface PostService {
     public Post createPost(String userId, Post post);
 
     public List<Comment> getCommentsByPostId(Long postId);
+
+    public String deletePost(Long postId);
 }
 
