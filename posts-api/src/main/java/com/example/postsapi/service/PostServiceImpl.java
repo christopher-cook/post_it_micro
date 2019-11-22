@@ -75,4 +75,17 @@ public class PostServiceImpl implements PostService{
         }
         return "success";
     }
+
+    @Override
+    public Post updatePost(Long postId, Post post) throws EntityNotFoundException{
+        Post existingPost = null;
+        try {
+            existingPost = postRepository.findById(postId).get();
+        } catch (Exception e){
+            throw new EntityNotFoundException("Post does not exist!");
+        }
+        existingPost.setTitle(post.getTitle());
+        existingPost.setDescription(post.getDescription());
+        return postRepository.save(existingPost);
+    }
 }

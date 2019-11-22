@@ -38,5 +38,8 @@ public class PostController {
         return postService.deletePost(postId);
     }
 
-
+    @PutMapping("/{postId}")
+    public Post updatePost(@PathVariable Long postId, @RequestBody Post post) throws EntityNotFoundException {
+        return postService.updatePost(postId, post);
+    }
 }

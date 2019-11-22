@@ -13,5 +13,7 @@ public interface PostService {
     public List<Comment> getCommentsByPostId(Long postId);
 
     public String deletePost(Long postId) throws EntityNotFoundException;
+
+    public Post updatePost(Long postId, Post post) throws EntityNotFoundException;
 }
 
