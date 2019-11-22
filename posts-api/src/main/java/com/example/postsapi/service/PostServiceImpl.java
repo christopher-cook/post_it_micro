@@ -1,5 +1,6 @@
 package com.example.postsapi.service;
 
+import com.example.postsapi.exception.EntityNotFoundException;
 import com.example.postsapi.model.Comment;
 import com.example.postsapi.model.Post;
 import com.example.postsapi.model.User;
@@ -65,9 +66,13 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public String deletePost(Long postId) {
-        postRepository.deleteById(postId);
-        sender.send(Long.toString(postId));
+    public String deletePost(Long postId) throws EntityNotFoundException {
+        try {
+            postRepository.deleteById(postId);
+            sender.send(Long.toString(postId));
+        } catch (Exception e){
+            throw new EntityNotFoundException("Post does not exist");
+        }
         return "success";
     }
 }

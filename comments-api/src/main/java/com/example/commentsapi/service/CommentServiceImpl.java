@@ -1,5 +1,6 @@
 package com.example.commentsapi.service;
 
+import com.example.commentsapi.exception.EntityNotFoundException;
 import com.example.commentsapi.model.Comment;
 import com.example.commentsapi.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Long deleteComment(Long commentId) {
-        commentRepository.deleteById(commentId);
-        return commentId;
+    public Long deleteComment(Long commentId) throws EntityNotFoundException {
+        try {
+            commentRepository.deleteById(commentId);
+            return commentId;
+        } catch (Exception e){
+            throw new EntityNotFoundException("Comment does not exist!");
+        }
     }
 }

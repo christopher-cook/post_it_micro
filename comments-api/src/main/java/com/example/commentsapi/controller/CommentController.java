@@ -1,5 +1,6 @@
 package com.example.commentsapi.controller;
 
+import com.example.commentsapi.exception.EntityNotFoundException;
 import com.example.commentsapi.model.Comment;
 import com.example.commentsapi.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public Long deleteComment(@PathVariable Long commentId){
+    public Long deleteComment(@PathVariable Long commentId) throws EntityNotFoundException {
         return commentService.deleteComment(commentId);
     }
 

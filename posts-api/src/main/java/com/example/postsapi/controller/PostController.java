@@ -1,5 +1,6 @@
 package com.example.postsapi.controller;
 
+import com.example.postsapi.exception.EntityNotFoundException;
 import com.example.postsapi.model.Comment;
 import com.example.postsapi.model.Post;
 import com.example.postsapi.mq.Sender;
@@ -33,7 +34,7 @@ public class PostController {
         return postService.getCommentsByPostId(postId);
     }
     @DeleteMapping("/{postId}")
-    public String deletePost(@PathVariable Long postId){
+    public String deletePost(@PathVariable Long postId) throws EntityNotFoundException {
         return postService.deletePost(postId);
     }
 
