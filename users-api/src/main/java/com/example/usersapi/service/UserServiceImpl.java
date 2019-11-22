@@ -42,7 +42,12 @@ public class UserServiceImpl implements UserService {
 //    UserRole userRole = userRoleService.getRole(user.getUserRole().getName());;
 //    user.setUserRole(userRole);
     user.setPassword(encoder().encode(user.getPassword()));
-    User savedUser = userRepository.save(user);
+    User savedUser = null;
+    try {
+      savedUser = userRepository.save(user);
+    } catch (Exception e){
+      throw new UserExistsException("User already exists");
+    }
     if (savedUser != null) {
       String token = jwtUtil.generateToken(savedUser.getUsername());
       return new JwtResponse(token, savedUser.getUsername());

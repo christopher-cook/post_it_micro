@@ -1,7 +1,6 @@
 package com.example.apigateway.service;
 
 import com.example.apigateway.bean.UserBean;
-import com.example.apigateway.exception.EntityNotFoundException;
 import com.example.apigateway.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
