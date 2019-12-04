@@ -8,8 +8,6 @@
 * Hibernate
 * Junit & Integration Testing
 * RabbitMQ - messaging queue
-  * Post - Delete
-  * Comment - Email to Post owner
 * ELK stack - service logging
 * Jacoco/Jenkins - Coverage reports
 * Swagger/Postman - mapping and testing api routes
