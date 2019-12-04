@@ -20,7 +20,7 @@
 The app was planned and prepared using Pivotal Tracker for user stories and Draw.io for the ERD diagram. In order to create our micro services app we create five different apps using Spring Boot. We create an app for the API-Gateway that will be our entry point. A Eureka app to map the our services to resources. Our entities User, Post, Comment are three separate Spring Boot apps.
 
 ## ERD
-<img src="assets/microservice_erd_final.png">
+<img src="assets/microservices_erd.png">
 ## Architecture
 <img src="assets/microservices_architecture_final.png">
 
