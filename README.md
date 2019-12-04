@@ -18,3 +18,11 @@ The app was planned and prepared using Pivotal Tracker for user stories and Draw
 <img src="assets/microservice_erd.png">
 ## Architecture
 <img src="assets/microservices_architecture.png">
+
+## Microservice Links
+* [Eureka](https://github.com/christopher-cook/eureka-api)
+* [API-gateway](https://github.com/christopher-cook/api-gateway)
+* [Users-API](https://github.com/christopher-cook/users-api)
+* [Posts-API](https://github.com/christopher-cook/posts-api)
+* [Comments-API](https://github.com/christopher-cook/comments-api)
+* [Email-Server](https://github.com/zhu-qin/email-service)
