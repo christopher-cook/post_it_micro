@@ -9,7 +9,9 @@
 * Junit
 * User stories [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2416890)
 * Draw.io for ERD diagram
-* Pivotal Cloud Foundry (hosting)
+* ELK stack - service logging
+* Jacoco/Jenkins - Coverage reports
+* Swagger/Postman - mapping and testing api routes
 
 ## Approach & Planning
 The app was planned and prepared using Pivotal Tracker for user stories and Draw.io for the ERD diagram. In order to create our micro services app we create five different apps using Spring Boot. We create an app for the API-Gateway that will be our entry point. A Eureka app to map the our services to resources. Our entities User, Post, Comment are three separate Spring Boot apps.
