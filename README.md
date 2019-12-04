@@ -6,9 +6,7 @@
 ## Technologies Used
 * Spring
 * Hibernate
-* Testing
-  * Junit
-  * Integration
+* Junit & Integration Testing
 * RabbitMQ - messaging queue
   * Post - Delete
   * Comment - Email to Post owner
